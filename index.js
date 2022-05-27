@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = process.env.PORT || 5000
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 
 app.use(cors())
@@ -16,10 +16,18 @@ async function run() {
         await client.connect();
         const toolCollection = client.db("garden_master").collection("tools")
 
-
-        app.get("/tools", async (req, res) => {
+        // ---------------- Get Methods
+        // get all products
+        app.get("/tool", async (req, res) => {
             const tools = await toolCollection.find().toArray()
             res.send(tools)
+        })
+        // get specific tool
+        app.get("/tool/:id", async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const tool = await toolCollection.findOne(filter)
+            res.send(tool)
         })
 
         console.log("connected");
