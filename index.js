@@ -15,6 +15,7 @@ async function run() {
     try {
         await client.connect();
         const toolCollection = client.db("garden_master").collection("tools")
+        const userCollection = client.db("garden_master").collection("users")
 
         // ---------------- Get Methods
         // get all products
@@ -28,6 +29,21 @@ async function run() {
             const filter = { _id: ObjectId(id) }
             const tool = await toolCollection.findOne(filter)
             res.send(tool)
+        })
+
+        // ---------------- Put Methods
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email
+            const filter = { email: email };
+            const options = { upsert: true };
+
+            const user = req.body
+
+            const updateDoc = {
+                $set: user
+            };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
         })
 
         console.log("connected");
