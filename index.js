@@ -68,6 +68,18 @@ async function run() {
         })
 
 
+        // -------------------- all post methods
+        // order
+        app.post('/order', async (req, res) => {
+
+            const order = req.body
+
+            const result = await orderCollection.insertOne(order)
+
+            res.send(result)
+        })
+
+
 
         console.log("connected");
     } finally {
