@@ -38,6 +38,14 @@ async function run() {
             res.send(users)
         })
 
+        // get a user if admin or not
+        app.get("/admin/:email", async (req, res) => {
+            const email = req.params.email
+            const user = await userCollection.findOne({ email: email })
+            const isAdmin = user.role === "admin"
+            res.send({ admin: isAdmin })
+        })
+
         // ---------------- Put Methods
         // upsert user to database
         app.put('/user/:email', async (req, res) => {
