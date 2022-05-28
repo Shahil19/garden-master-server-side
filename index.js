@@ -99,6 +99,9 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
     res.send('Heroku World!')
 })
+app.get('/heroku', (req, res) => {
+    res.send('Heroku ku ku ku World!')
+})
 
 app.listen(port, () => {
     console.log(`Listening ${port}`)
