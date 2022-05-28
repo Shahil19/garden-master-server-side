@@ -101,6 +101,13 @@ async function run() {
             res.send(result)
         })
 
+        // add a product to toolsCollection
+        app.post("/tool", async (req, res) => {
+            const tool = req.body
+            const result = await toolCollection.insertOne(tool)
+            res.send(result)
+        })
+
 
 
         console.log("connected");
