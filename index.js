@@ -38,6 +38,15 @@ async function run() {
             res.send(users)
         })
 
+
+        // get user orders
+        app.get("/user/order", async (req, res) => {
+            const email = req.query.email
+            const filter = { email: email }
+            const result = await orderCollection.find(filter).toArray()
+            res.send(result)
+        })
+
         // get a user if admin or not
         app.get("/admin/:email", async (req, res) => {
             const email = req.params.email
@@ -62,7 +71,7 @@ async function run() {
             res.send(result)
         })
 
-        // update user to admin (dont insert)
+        // update user to admin (does not insert)
         app.put('/user/admin/:email', async (req, res) => {
             const email = req.params.email
             const filter = { email: email }
