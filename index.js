@@ -108,7 +108,7 @@ async function run() {
             res.send(result)
         })
 
-        // -------------------- delete Tool
+        // -------------------- delete a specific Tool
         app.delete("/tool/:id", async (req, res) => {
             const id = req.params.id
             const filter = { _id: ObjectId(id) }
