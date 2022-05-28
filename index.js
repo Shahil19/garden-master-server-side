@@ -38,6 +38,11 @@ async function run() {
             res.send(users)
         })
 
+        // get all orders for admin
+        app.get("/order", async (req, res) => {
+            const orders = await orderCollection.find().toArray()
+            res.send(orders)
+        })
 
         // get user orders
         app.get("/user/order", async (req, res) => {
