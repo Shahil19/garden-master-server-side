@@ -16,6 +16,7 @@ async function run() {
         await client.connect();
         const toolCollection = client.db("garden_master").collection("tools")
         const userCollection = client.db("garden_master").collection("users")
+        const orderCollection = client.db("garden_master").collection("order")
 
         // ---------------- Get Methods
         // get all products
@@ -63,6 +64,18 @@ async function run() {
                 }
             };
             const result = await userCollection.updateOne(filter, updateDoc)
+            res.send(result)
+        })
+
+        // orders
+        app.put("/order/:id", async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const order = req.body
+            const updateDoc = {
+                $set: { order }
+            };
+            const result = await orderCollection.insertOne(filter, updateDoc)
             res.send(result)
         })
 
