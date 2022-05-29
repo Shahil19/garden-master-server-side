@@ -78,11 +78,10 @@ async function run() {
 
             const user = req.body
 
-            const updateDoc = {
-                $set: user
-            };
+            const updateDoc = { $set: user };
+
             const result = await userCollection.updateOne(filter, updateDoc, options);
-            res.send(result)
+            res.send({ result, token })
         })
 
         // update user to admin (does not insert)
@@ -99,7 +98,7 @@ async function run() {
         })
 
         // update user info-------------------------------------------------------------
-        app.put('/user/:email', async (req, res) => {
+        app.put('/user/profile/:email', async (req, res) => {
             const email = req.params.email
             const userInfo = req.body
 
