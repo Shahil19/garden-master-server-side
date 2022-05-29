@@ -95,7 +95,6 @@ async function run() {
         app.post('/order', async (req, res) => {
 
             const order = req.body
-
             const result = await orderCollection.insertOne(order)
 
             res.send(result)
@@ -108,12 +107,21 @@ async function run() {
             res.send(result)
         })
 
-        // -------------------- delete a specific Tool
+        // -------------------- all post methods
+        // - delete a specific Tool
         app.delete("/tool/:id", async (req, res) => {
             const id = req.params.id
             const filter = { _id: ObjectId(id) }
             const result = await toolCollection.deleteOne(filter)
 
+            res.send(result)
+        })
+
+        // - delete a specific Tool
+        app.delete("/order/:id", async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const result = await orderCollection.deleteOne(filter)
             res.send(result)
         })
 
