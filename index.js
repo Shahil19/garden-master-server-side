@@ -158,7 +158,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
     res.send('Heroku World!')
 })
-app.get('/heroku', (req, res) => {
+app.get('/kaku', (req, res) => {
     res.send('Heroku ku ku ku World!')
 })
 
