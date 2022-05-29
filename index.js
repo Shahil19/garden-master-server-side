@@ -81,7 +81,7 @@ async function run() {
             const updateDoc = { $set: user };
 
             const result = await userCollection.updateOne(filter, updateDoc, options);
-            res.send({ result, token })
+            res.send(result)
         })
 
         // update user to admin (does not insert)
