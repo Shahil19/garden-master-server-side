@@ -98,7 +98,7 @@ async function run() {
         })
 
         // update user info-------------------------------------------------------------
-        app.put('/user/profile/:email', async (req, res) => {
+        app.put('/user/:email', async (req, res) => {
             const email = req.params.email
             const userInfo = req.body
 
