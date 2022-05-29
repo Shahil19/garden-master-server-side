@@ -60,6 +60,15 @@ async function run() {
             res.send({ admin: isAdmin })
         })
 
+        // get specific user-------------------------------------------------------------
+        app.get("/user/:email", async (req, res) => {
+            const email = req.params.email
+            const user = await userCollection.findOne({ email: email })
+
+            res.send(user)
+        })
+        // get specific user-------------------------------------------------------------
+
         // ---------------- Put Methods
         // upsert user to database
         app.put('/user/:email', async (req, res) => {
@@ -89,6 +98,19 @@ async function run() {
             res.send(result)
         })
 
+        // update user info-------------------------------------------------------------
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email
+            const userInfo = req.body
+
+            const filter = { email: email }
+            const options = { upsert: true };
+            const updateDoc = { $set: userInfo };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
+
+            res.send(result)
+        })
+        // update user info-------------------------------------------------------------
 
         // -------------------- all post methods
         // order
@@ -117,7 +139,7 @@ async function run() {
             res.send(result)
         })
 
-        // - delete a specific Tool
+        // - delete a specific order
         app.delete("/order/:id", async (req, res) => {
             const id = req.params.id
             const filter = { _id: ObjectId(id) }
